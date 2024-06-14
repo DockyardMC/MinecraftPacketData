@@ -1,0 +1,3778 @@
+[
+    {
+        "id": "0x00",
+        "header": "Handshake",
+        "packet": "handshake",
+        "protocol_state": "handshaking",
+        "bound_to": "server",
+        "content": [
+            {
+                "field": "server_address",
+                "type": "string"
+            },
+            {
+                "field": "server_port",
+                "type": "unsigned_short"
+            },
+            {
+                "field": "next_state",
+                "type": "var_int_enum"
+            }
+        ]
+    },
+    {
+        "id": "0x00",
+        "header": "Status Response",
+        "packet": "status_response",
+        "protocol_state": "status",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "json_response",
+                "type": "string"
+            }
+        ]
+    },
+    {
+        "id": "0x01",
+        "header": "Encryption Request",
+        "packet": "encryption_request",
+        "protocol_state": "login",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "public_key_length",
+                "type": "var_int"
+            },
+            {
+                "field": "public_key",
+                "type": "byte_array"
+            },
+            {
+                "field": "verify_token_length",
+                "type": "var_int"
+            },
+            {
+                "field": "verify_token",
+                "type": "byte_array"
+            },
+            {
+                "field": "should_authenticate",
+                "type": "boolean"
+            }
+        ]
+    },
+    {
+        "id": "0x02",
+        "header": "Login Success",
+        "packet": "login_success",
+        "protocol_state": "login",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "username",
+                "type": "string"
+            },
+            {
+                "field": "number_of_properties",
+                "type": "var_int"
+            },
+            {
+                "field": "property",
+                "type": "name"
+            },
+            {
+                "field": "value",
+                "type": "string"
+            },
+            {
+                "field": "is_signed",
+                "type": "boolean"
+            },
+            {
+                "field": "signature",
+                "type": "optional_string"
+            },
+            {
+                "field": "strict_error_handling",
+                "type": "boolean"
+            }
+        ]
+    },
+    {
+        "id": "0x04",
+        "header": "Login Plugin Request",
+        "packet": "login_plugin_request",
+        "protocol_state": "login",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "channel",
+                "type": "identifier"
+            },
+            {
+                "field": "data",
+                "type": "byte_array"
+            }
+        ]
+    },
+    {
+        "id": "0x00",
+        "header": "Login Start",
+        "packet": "login_start",
+        "protocol_state": "login",
+        "bound_to": "server",
+        "content": [
+            {
+                "field": "player_uuid",
+                "type": "uuid"
+            }
+        ]
+    },
+    {
+        "id": "0x01",
+        "header": "Encryption Response",
+        "packet": "encryption_response",
+        "protocol_state": "login",
+        "bound_to": "server",
+        "content": [
+            {
+                "field": "shared_secret",
+                "type": "byte_array"
+            },
+            {
+                "field": "verify_token_length",
+                "type": "var_int"
+            },
+            {
+                "field": "verify_token",
+                "type": "byte_array"
+            }
+        ]
+    },
+    {
+        "id": "0x02",
+        "header": "Login Plugin Response",
+        "packet": "login_plugin_response",
+        "protocol_state": "login",
+        "bound_to": "server",
+        "content": [
+            {
+                "field": "successful",
+                "type": "boolean"
+            },
+            {
+                "field": "data",
+                "type": "optional_byte_array"
+            }
+        ]
+    },
+    {
+        "id": "0x04",
+        "header": "Cookie Response (login)",
+        "packet": "cookie_response",
+        "protocol_state": "login",
+        "bound_to": "server",
+        "content": [
+            {
+                "field": "has_payload",
+                "type": "boolean"
+            },
+            {
+                "field": "payload_length",
+                "type": "var_int"
+            },
+            {
+                "field": "payload",
+                "type": "optional_byte_array"
+            }
+        ]
+    },
+    {
+        "id": "0x01",
+        "header": "Clientbound Plugin Message (configuration)",
+        "packet": "clientbound_plugin_message",
+        "protocol_state": "configuration",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "data",
+                "type": "byte_array"
+            }
+        ]
+    },
+    {
+        "id": "0x07",
+        "header": "Registry Data",
+        "packet": "registry_data",
+        "protocol_state": "configuration",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "registry_id",
+                "type": "identifier"
+            },
+            {
+                "field": "entry_count",
+                "type": "var_int"
+            },
+            {
+                "field": "entries",
+                "type": "entry_id"
+            },
+            {
+                "field": "has_data",
+                "type": "boolean"
+            },
+            {
+                "field": "data",
+                "type": "nbt"
+            }
+        ]
+    },
+    {
+        "id": "0x08",
+        "header": "Remove Resource Pack (configuration)",
+        "packet": "remove_resource_pack",
+        "protocol_state": "configuration",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "uuid",
+                "type": "optional_uuid"
+            }
+        ]
+    },
+    {
+        "id": "0x09",
+        "header": "Add Resource Pack (configuration)",
+        "packet": "add_resource_pack",
+        "protocol_state": "configuration",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "url",
+                "type": "string"
+            },
+            {
+                "field": "hash",
+                "type": "string"
+            },
+            {
+                "field": "forced",
+                "type": "boolean"
+            },
+            {
+                "field": "has_prompt_message",
+                "type": "boolean"
+            },
+            {
+                "field": "prompt_message",
+                "type": "optional_text_component"
+            }
+        ]
+    },
+    {
+        "id": "0x0A",
+        "header": "Store Cookie (configuration)",
+        "packet": "store_cookie",
+        "protocol_state": "configuration",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "payload",
+                "type": "byte_array"
+            }
+        ]
+    },
+    {
+        "id": "0x0B",
+        "header": "Transfer (configuration)",
+        "packet": "transfer",
+        "protocol_state": "configuration",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "port",
+                "type": "var_int"
+            }
+        ]
+    },
+    {
+        "id": "0x0C",
+        "header": "Feature Flags",
+        "packet": "feature_flags",
+        "protocol_state": "configuration",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "feature_flags",
+                "type": "array_of_identifier"
+            }
+        ]
+    },
+    {
+        "id": "0x0D",
+        "header": "Update Tags (configuration)",
+        "packet": "update_tags",
+        "protocol_state": "configuration",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "array_of_tags",
+                "type": "registry"
+            },
+            {
+                "field": "array_of_tag",
+                "type": ""
+            }
+        ]
+    },
+    {
+        "id": "0x0E",
+        "header": "Clientbound Known Packs",
+        "packet": "clientbound_known_packs",
+        "protocol_state": "configuration",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "known_packs",
+                "type": "namespace"
+            },
+            {
+                "field": "id",
+                "type": "string"
+            },
+            {
+                "field": "version",
+                "type": "string"
+            }
+        ]
+    },
+    {
+        "id": "0x0F",
+        "header": "Custom Report Details (configuration)",
+        "packet": "custom_report_details",
+        "protocol_state": "configuration",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "details",
+                "type": "title"
+            },
+            {
+                "field": "description",
+                "type": "string"
+            }
+        ]
+    },
+    {
+        "id": "0x10",
+        "header": "Server Links (configuration)",
+        "packet": "server_links",
+        "protocol_state": "configuration",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "links",
+                "type": "is_built_in"
+            },
+            {
+                "field": "label",
+                "type": "var_int_enum_text_component"
+            },
+            {
+                "field": "url",
+                "type": "string"
+            }
+        ]
+    },
+    {
+        "id": "0x00",
+        "header": "Client Information (configuration)",
+        "packet": "client_information",
+        "protocol_state": "configuration",
+        "bound_to": "server",
+        "content": [
+            {
+                "field": "view_distance",
+                "type": "byte"
+            },
+            {
+                "field": "chat_mode",
+                "type": "var_int_enum"
+            },
+            {
+                "field": "chat_colors",
+                "type": "boolean"
+            },
+            {
+                "field": "displayed_skin_parts",
+                "type": "unsigned_byte"
+            },
+            {
+                "field": "main_hand",
+                "type": "var_int_enum"
+            },
+            {
+                "field": "enable_text_filtering",
+                "type": "boolean"
+            },
+            {
+                "field": "allow_server_listings",
+                "type": "boolean"
+            }
+        ]
+    },
+    {
+        "id": "0x01",
+        "header": "Cookie Response (configuration)",
+        "packet": "cookie_response",
+        "protocol_state": "configuration",
+        "bound_to": "server",
+        "content": [
+            {
+                "field": "has_payload",
+                "type": "boolean"
+            },
+            {
+                "field": "payload_length",
+                "type": "var_int"
+            },
+            {
+                "field": "payload",
+                "type": "optional_byte_array"
+            }
+        ]
+    },
+    {
+        "id": "0x02",
+        "header": "Serverbound Plugin Message (configuration)",
+        "packet": "serverbound_plugin_message",
+        "protocol_state": "configuration",
+        "bound_to": "server",
+        "content": [
+            {
+                "field": "data",
+                "type": "byte_array"
+            }
+        ]
+    },
+    {
+        "id": "0x06",
+        "header": "Resource Pack Response (configuration)",
+        "packet": "resource_pack_response",
+        "protocol_state": "configuration",
+        "bound_to": "server",
+        "content": [
+            {
+                "field": "uuid",
+                "type": "uuid"
+            },
+            {
+                "field": "result",
+                "type": "var_int_enum"
+            }
+        ]
+    },
+    {
+        "id": "0x07",
+        "header": "Serverbound Known Packs",
+        "packet": "serverbound_known_packs",
+        "protocol_state": "configuration",
+        "bound_to": "server",
+        "content": [
+            {
+                "field": "known_packs",
+                "type": "namespace"
+            },
+            {
+                "field": "id",
+                "type": "string"
+            },
+            {
+                "field": "version",
+                "type": "string"
+            }
+        ]
+    },
+    {
+        "id": "0x01",
+        "header": "Spawn Entity",
+        "packet": "spawn_entity",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "entity_uuid",
+                "type": "uuid"
+            },
+            {
+                "field": "type",
+                "type": "var_int"
+            },
+            {
+                "field": "x",
+                "type": "double"
+            },
+            {
+                "field": "y",
+                "type": "double"
+            },
+            {
+                "field": "z",
+                "type": "double"
+            },
+            {
+                "field": "pitch",
+                "type": "angle"
+            },
+            {
+                "field": "yaw",
+                "type": "angle"
+            },
+            {
+                "field": "head_yaw",
+                "type": "angle"
+            },
+            {
+                "field": "data",
+                "type": "var_int"
+            },
+            {
+                "field": "velocity_x",
+                "type": "short"
+            }
+        ]
+    },
+    {
+        "id": "0x02",
+        "header": "Spawn Experience Orb",
+        "packet": "spawn_experience_orb",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "x",
+                "type": "double"
+            },
+            {
+                "field": "y",
+                "type": "double"
+            },
+            {
+                "field": "z",
+                "type": "double"
+            },
+            {
+                "field": "count",
+                "type": "short"
+            }
+        ]
+    },
+    {
+        "id": "0x03",
+        "header": "Entity Animation",
+        "packet": "entity_animation",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "animation",
+                "type": "unsigned_byte"
+            }
+        ]
+    },
+    {
+        "id": "0x04",
+        "header": "Award Statistics",
+        "packet": "award_statistics",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "statistic",
+                "type": "category_id"
+            },
+            {
+                "field": "statistic_id",
+                "type": "var_int"
+            },
+            {
+                "field": "value",
+                "type": "var_int"
+            }
+        ]
+    },
+    {
+        "id": "0x06",
+        "header": "Set Block Destroy Stage",
+        "packet": "set_block_destroy_stage",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "location",
+                "type": "position"
+            },
+            {
+                "field": "destroy_stage",
+                "type": "byte"
+            }
+        ]
+    },
+    {
+        "id": "0x07",
+        "header": "Block Entity Data",
+        "packet": "block_entity_data",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "type",
+                "type": "var_int"
+            },
+            {
+                "field": "nbt_data",
+                "type": "nbt"
+            }
+        ]
+    },
+    {
+        "id": "0x08",
+        "header": "Block Action",
+        "packet": "block_action",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "action_id_(byte_1)",
+                "type": "unsigned_byte"
+            },
+            {
+                "field": "action_parameter_(byte_2)",
+                "type": "unsigned_byte"
+            },
+            {
+                "field": "block_type",
+                "type": "var_int"
+            }
+        ]
+    },
+    {
+        "id": "0x09",
+        "header": "Block Update",
+        "packet": "block_update",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "block_id",
+                "type": "var_int"
+            }
+        ]
+    },
+    {
+        "id": "0x0A",
+        "header": "Boss Bar",
+        "packet": "boss_bar",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "action",
+                "type": "var_int_enum"
+            },
+            {
+                "field": "0:_add",
+                "type": "title"
+            },
+            {
+                "field": "health",
+                "type": "float"
+            },
+            {
+                "field": "color",
+                "type": "var_int_enum"
+            },
+            {
+                "field": "division",
+                "type": "var_int_enum"
+            },
+            {
+                "field": "flags",
+                "type": "unsigned_byte"
+            },
+            {
+                "field": "1:_remove",
+                "type": "no_fields"
+            },
+            {
+                "field": "2:_update_health",
+                "type": "health"
+            },
+            {
+                "field": "3:_update_title",
+                "type": "title"
+            },
+            {
+                "field": "4:_update_style",
+                "type": "color"
+            },
+            {
+                "field": "dividers",
+                "type": "var_int_enum"
+            },
+            {
+                "field": "5:_update_flags",
+                "type": "flags"
+            }
+        ]
+    },
+    {
+        "id": "0x0B",
+        "header": "Change Difficulty",
+        "packet": "change_difficulty",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "difficulty_locked?",
+                "type": "boolean"
+            }
+        ]
+    },
+    {
+        "id": "0x0E",
+        "header": "Chunk Biomes",
+        "packet": "chunk_biomes",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "number_of_chunks",
+                "type": "var_int"
+            },
+            {
+                "field": "chunk_biome_data",
+                "type": "chunk_z"
+            },
+            {
+                "field": "chunk_x",
+                "type": "int"
+            },
+            {
+                "field": "size",
+                "type": "var_int"
+            },
+            {
+                "field": "data",
+                "type": "byte_array"
+            }
+        ]
+    },
+    {
+        "id": "0x10",
+        "header": "Command Suggestions Response",
+        "packet": "command_suggestions_response",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "id",
+                "type": "var_int"
+            },
+            {
+                "field": "start",
+                "type": "var_int"
+            },
+            {
+                "field": "length",
+                "type": "var_int"
+            },
+            {
+                "field": "count",
+                "type": "var_int"
+            },
+            {
+                "field": "matches",
+                "type": "match"
+            },
+            {
+                "field": "has_tooltip",
+                "type": "boolean"
+            },
+            {
+                "field": "tooltip",
+                "type": "optional_text_component"
+            }
+        ]
+    },
+    {
+        "id": "0x11",
+        "header": "Commands",
+        "packet": "commands",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "nodes",
+                "type": "array_of_node"
+            },
+            {
+                "field": "root_index",
+                "type": "var_int"
+            }
+        ]
+    },
+    {
+        "id": "0x13",
+        "header": "Set Container Content",
+        "packet": "set_container_content",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "state_id",
+                "type": "var_int"
+            },
+            {
+                "field": "count",
+                "type": "var_int"
+            },
+            {
+                "field": "carried_item",
+                "type": "slot"
+            }
+        ]
+    },
+    {
+        "id": "0x14",
+        "header": "Set Container Property",
+        "packet": "set_container_property",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "property",
+                "type": "short"
+            },
+            {
+                "field": "value",
+                "type": "short"
+            }
+        ]
+    },
+    {
+        "id": "0x15",
+        "header": "Set Container Slot",
+        "packet": "set_container_slot",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "state_id",
+                "type": "var_int"
+            },
+            {
+                "field": "slot",
+                "type": "short"
+            },
+            {
+                "field": "slot_data",
+                "type": "slot"
+            }
+        ]
+    },
+    {
+        "id": "0x17",
+        "header": "Set Cooldown",
+        "packet": "set_cooldown",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "cooldown_ticks",
+                "type": "var_int"
+            }
+        ]
+    },
+    {
+        "id": "0x18",
+        "header": "Chat Suggestions",
+        "packet": "chat_suggestions",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "count",
+                "type": "var_int"
+            },
+            {
+                "field": "entries",
+                "type": "array_of_string"
+            }
+        ]
+    },
+    {
+        "id": "0x19",
+        "header": "Clientbound Plugin Message (play)",
+        "packet": "clientbound_plugin_message",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "data",
+                "type": "byte_array"
+            }
+        ]
+    },
+    {
+        "id": "0x1A",
+        "header": "Damage Event",
+        "packet": "damage_event",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "entity_id",
+                "type": "var_int"
+            },
+            {
+                "field": "source_type_id",
+                "type": "var_int"
+            },
+            {
+                "field": "source_cause_id",
+                "type": "var_int"
+            },
+            {
+                "field": "source_direct_id",
+                "type": "var_int"
+            },
+            {
+                "field": "has_source_position",
+                "type": "boolean"
+            },
+            {
+                "field": "source_position_x",
+                "type": "optional_double"
+            },
+            {
+                "field": "source_position_y",
+                "type": "optional_double"
+            },
+            {
+                "field": "source_position_z",
+                "type": "optional_double"
+            }
+        ]
+    },
+    {
+        "id": "0x1B",
+        "header": "Debug Sample",
+        "packet": "debug_sample",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "sample",
+                "type": "long_array"
+            },
+            {
+                "field": "sample_type",
+                "type": "var_int_enum"
+            }
+        ]
+    },
+    {
+        "id": "0x1C",
+        "header": "Delete Message",
+        "packet": "delete_message",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "signature",
+                "type": "optional_byte_array"
+            }
+        ]
+    },
+    {
+        "id": "0x1E",
+        "header": "Disguised Chat Message",
+        "packet": "disguised_chat_message",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "chat_type",
+                "type": "var_int"
+            },
+            {
+                "field": "sender_name",
+                "type": "text_component"
+            },
+            {
+                "field": "has_target_name",
+                "type": "boolean"
+            },
+            {
+                "field": "target_name",
+                "type": "text_component"
+            }
+        ]
+    },
+    {
+        "id": "0x1F",
+        "header": "Entity Event",
+        "packet": "entity_event",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "entity_status",
+                "type": "byte_enum"
+            }
+        ]
+    },
+    {
+        "id": "0x20",
+        "header": "Explosion",
+        "packet": "explosion",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "y",
+                "type": "double"
+            },
+            {
+                "field": "z",
+                "type": "double"
+            },
+            {
+                "field": "strength",
+                "type": "float"
+            },
+            {
+                "field": "record_count",
+                "type": "var_int"
+            },
+            {
+                "field": "records",
+                "type": "array_of"
+            },
+            {
+                "field": "player_motion_x",
+                "type": "float"
+            },
+            {
+                "field": "player_motion_y",
+                "type": "float"
+            },
+            {
+                "field": "player_motion_z",
+                "type": "float"
+            },
+            {
+                "field": "block_interaction",
+                "type": "var_int_enum"
+            },
+            {
+                "field": "small_explosion_particle_id",
+                "type": "var_int"
+            },
+            {
+                "field": "small_explosion_particle_data",
+                "type": "varies"
+            },
+            {
+                "field": "large_explosion_particle_id",
+                "type": "var_int"
+            },
+            {
+                "field": "large_explosion_particle_data",
+                "type": "varies"
+            },
+            {
+                "field": "explosion_sound",
+                "type": "sound_name"
+            },
+            {
+                "field": "has_fixed_range",
+                "type": "optional_boolean"
+            },
+            {
+                "field": "range",
+                "type": "optional_float"
+            }
+        ]
+    },
+    {
+        "id": "0x21",
+        "header": "Unload Chunk",
+        "packet": "unload_chunk",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "chunk_x",
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "id": "0x22",
+        "header": "Game Event",
+        "packet": "game_event",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "value",
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "id": "0x23",
+        "header": "Open Horse Screen",
+        "packet": "open_horse_screen",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "slot_count",
+                "type": "var_int"
+            },
+            {
+                "field": "entity_id",
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "id": "0x24",
+        "header": "Hurt Animation",
+        "packet": "hurt_animation",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "entity_id",
+                "type": "var_int"
+            },
+            {
+                "field": "yaw",
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "id": "0x25",
+        "header": "Initialize World Border",
+        "packet": "initialize_world_border",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "z",
+                "type": "double"
+            },
+            {
+                "field": "old_diameter",
+                "type": "double"
+            },
+            {
+                "field": "new_diameter",
+                "type": "double"
+            },
+            {
+                "field": "speed",
+                "type": "var_long"
+            },
+            {
+                "field": "portal_teleport_boundary",
+                "type": "var_int"
+            },
+            {
+                "field": "warning_blocks",
+                "type": "var_int"
+            },
+            {
+                "field": "warning_time",
+                "type": "var_int"
+            }
+        ]
+    },
+    {
+        "id": "0x27",
+        "header": "Chunk Data and Update Light",
+        "packet": "chunk_data_and_update_light",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "chunk_z",
+                "type": "int"
+            },
+            {
+                "field": "heightmaps",
+                "type": "nbt"
+            },
+            {
+                "field": "size",
+                "type": "var_int"
+            },
+            {
+                "field": "data",
+                "type": "byte_array"
+            },
+            {
+                "field": "number_of_block_entities",
+                "type": "var_int"
+            },
+            {
+                "field": "block_entity",
+                "type": "packed_xz"
+            },
+            {
+                "field": "y",
+                "type": "short"
+            },
+            {
+                "field": "type",
+                "type": "var_int"
+            },
+            {
+                "field": "data",
+                "type": "nbt"
+            },
+            {
+                "field": "sky_light_mask",
+                "type": "bit_set"
+            },
+            {
+                "field": "block_light_mask",
+                "type": "bit_set"
+            },
+            {
+                "field": "empty_sky_light_mask",
+                "type": "bit_set"
+            },
+            {
+                "field": "empty_block_light_mask",
+                "type": "bit_set"
+            },
+            {
+                "field": "sky_light_array_count",
+                "type": "var_int"
+            },
+            {
+                "field": "sky_light_arrays",
+                "type": "length"
+            },
+            {
+                "field": "sky_light_array",
+                "type": "byte_array"
+            },
+            {
+                "field": "block_light_array_count",
+                "type": "var_int"
+            },
+            {
+                "field": "block_light_arrays",
+                "type": "length"
+            },
+            {
+                "field": "block_light_array",
+                "type": "byte_array"
+            }
+        ]
+    },
+    {
+        "id": "0x29",
+        "header": "Particle",
+        "packet": "particle",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "long_distance",
+                "type": "boolean"
+            },
+            {
+                "field": "x",
+                "type": "double"
+            },
+            {
+                "field": "y",
+                "type": "double"
+            },
+            {
+                "field": "z",
+                "type": "double"
+            },
+            {
+                "field": "offset_x",
+                "type": "float"
+            },
+            {
+                "field": "offset_y",
+                "type": "float"
+            },
+            {
+                "field": "offset_z",
+                "type": "float"
+            },
+            {
+                "field": "max_speed",
+                "type": "float"
+            },
+            {
+                "field": "particle_count",
+                "type": "int"
+            },
+            {
+                "field": "data",
+                "type": "varies"
+            }
+        ]
+    },
+    {
+        "id": "0x2A",
+        "header": "Update Light",
+        "packet": "update_light",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "chunk_z",
+                "type": "var_int"
+            },
+            {
+                "field": "sky_light_mask",
+                "type": "bit_set"
+            },
+            {
+                "field": "block_light_mask",
+                "type": "bit_set"
+            },
+            {
+                "field": "empty_sky_light_mask",
+                "type": "bit_set"
+            },
+            {
+                "field": "empty_block_light_mask",
+                "type": "bit_set"
+            },
+            {
+                "field": "sky_light_array_count",
+                "type": "var_int"
+            },
+            {
+                "field": "sky_light_arrays",
+                "type": "length"
+            },
+            {
+                "field": "sky_light_array",
+                "type": "byte_array"
+            },
+            {
+                "field": "block_light_array_count",
+                "type": "var_int"
+            },
+            {
+                "field": "block_light_arrays",
+                "type": "length"
+            },
+            {
+                "field": "block_light_array",
+                "type": "byte_array"
+            }
+        ]
+    },
+    {
+        "id": "0x2C",
+        "header": "Map Data",
+        "packet": "map_data",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "scale",
+                "type": "byte"
+            },
+            {
+                "field": "locked",
+                "type": "boolean"
+            },
+            {
+                "field": "has_icons",
+                "type": "boolean"
+            },
+            {
+                "field": "icon_count",
+                "type": "optional_var_int"
+            },
+            {
+                "field": "icon",
+                "type": "type"
+            },
+            {
+                "field": "x",
+                "type": "byte"
+            },
+            {
+                "field": "z",
+                "type": "byte"
+            },
+            {
+                "field": "direction",
+                "type": "byte"
+            },
+            {
+                "field": "has_display_name",
+                "type": "boolean"
+            },
+            {
+                "field": "display_name",
+                "type": "optional_text_component"
+            },
+            {
+                "field": "color_patch",
+                "type": "columns"
+            },
+            {
+                "field": "rows",
+                "type": "optional_unsigned_byte"
+            },
+            {
+                "field": "x",
+                "type": "optional_unsigned_byte"
+            },
+            {
+                "field": "z",
+                "type": "optional_unsigned_byte"
+            },
+            {
+                "field": "length",
+                "type": "optional_var_int"
+            },
+            {
+                "field": "data",
+                "type": "optional_array_of_unsigned_byte"
+            }
+        ]
+    },
+    {
+        "id": "0x2D",
+        "header": "Merchant Offers",
+        "packet": "merchant_offers",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "size",
+                "type": "var_int"
+            },
+            {
+                "field": "trades",
+                "type": "input_item_1"
+            },
+            {
+                "field": "output_item",
+                "type": "slot"
+            },
+            {
+                "field": "input_item_2",
+                "type": "slot"
+            },
+            {
+                "field": "trade_disabled",
+                "type": "boolean"
+            },
+            {
+                "field": "number_of_trade_uses",
+                "type": "int"
+            },
+            {
+                "field": "maximum_number_of_trade_uses",
+                "type": "int"
+            },
+            {
+                "field": "xp",
+                "type": "int"
+            },
+            {
+                "field": "special_price",
+                "type": "int"
+            },
+            {
+                "field": "price_multiplier",
+                "type": "float"
+            },
+            {
+                "field": "demand",
+                "type": "int"
+            },
+            {
+                "field": "villager_level",
+                "type": "var_int"
+            },
+            {
+                "field": "experience",
+                "type": "var_int"
+            },
+            {
+                "field": "is_regular_villager",
+                "type": "boolean"
+            },
+            {
+                "field": "can_restock",
+                "type": "boolean"
+            }
+        ]
+    },
+    {
+        "id": "0x2E",
+        "header": "Update Entity Position",
+        "packet": "update_entity_position",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "delta_x",
+                "type": "short"
+            },
+            {
+                "field": "delta_y",
+                "type": "short"
+            },
+            {
+                "field": "delta_z",
+                "type": "short"
+            },
+            {
+                "field": "on_ground",
+                "type": "boolean"
+            }
+        ]
+    },
+    {
+        "id": "0x2F",
+        "header": "Update Entity Position and Rotation",
+        "packet": "update_entity_position_and_rotation",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "delta_x",
+                "type": "short"
+            },
+            {
+                "field": "delta_y",
+                "type": "short"
+            },
+            {
+                "field": "delta_z",
+                "type": "short"
+            },
+            {
+                "field": "yaw",
+                "type": "angle"
+            },
+            {
+                "field": "pitch",
+                "type": "angle"
+            },
+            {
+                "field": "on_ground",
+                "type": "boolean"
+            }
+        ]
+    },
+    {
+        "id": "0x30",
+        "header": "Update Entity Rotation",
+        "packet": "update_entity_rotation",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "yaw",
+                "type": "angle"
+            },
+            {
+                "field": "pitch",
+                "type": "angle"
+            },
+            {
+                "field": "on_ground",
+                "type": "boolean"
+            }
+        ]
+    },
+    {
+        "id": "0x31",
+        "header": "Move Vehicle",
+        "packet": "move_vehicle",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "y",
+                "type": "double"
+            },
+            {
+                "field": "z",
+                "type": "double"
+            },
+            {
+                "field": "yaw",
+                "type": "float"
+            },
+            {
+                "field": "pitch",
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "id": "0x33",
+        "header": "Open Screen",
+        "packet": "open_screen",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "window_type",
+                "type": "var_int"
+            },
+            {
+                "field": "window_title",
+                "type": "text_component"
+            }
+        ]
+    },
+    {
+        "id": "0x34",
+        "header": "Open Sign Editor",
+        "packet": "open_sign_editor",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "is_front_text",
+                "type": "boolean"
+            }
+        ]
+    },
+    {
+        "id": "0x37",
+        "header": "Place Ghost Recipe",
+        "packet": "place_ghost_recipe",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "recipe",
+                "type": "identifier"
+            }
+        ]
+    },
+    {
+        "id": "0x38",
+        "header": "Player Abilities (clientbound)",
+        "packet": "player_abilities",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "flying_speed",
+                "type": "float"
+            },
+            {
+                "field": "field_of_view_modifier",
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "id": "0x39",
+        "header": "Player Chat Message",
+        "packet": "player_chat_message",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "index",
+                "type": "var_int"
+            },
+            {
+                "field": "message_signature_present",
+                "type": "boolean"
+            },
+            {
+                "field": "message_signature_bytes",
+                "type": "optional_byte_array"
+            },
+            {
+                "field": "body",
+                "type": "message"
+            },
+            {
+                "field": "timestamp",
+                "type": "long"
+            },
+            {
+                "field": "salt",
+                "type": "long"
+            },
+            {
+                "field": "previous_messages",
+                "type": "total_previous_messages"
+            },
+            {
+                "field": "array_(20)",
+                "type": "message_id"
+            },
+            {
+                "field": "signature",
+                "type": "optional_byte_array"
+            },
+            {
+                "field": "other",
+                "type": "unsigned_content_present"
+            },
+            {
+                "field": "unsigned_content",
+                "type": "optional_text_component"
+            },
+            {
+                "field": "filter_type",
+                "type": "var_int_enum"
+            },
+            {
+                "field": "filter_type_bits",
+                "type": "optional_bit_set"
+            },
+            {
+                "field": "chat_formatting",
+                "type": "chat_type"
+            },
+            {
+                "field": "sender_name",
+                "type": "text_component"
+            },
+            {
+                "field": "has_target_name",
+                "type": "boolean"
+            },
+            {
+                "field": "target_name",
+                "type": "optional_text_component"
+            }
+        ]
+    },
+    {
+        "id": "0x3C",
+        "header": "Combat Death",
+        "packet": "combat_death",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "message",
+                "type": "text_component"
+            }
+        ]
+    },
+    {
+        "id": "0x3D",
+        "header": "Player Info Remove",
+        "packet": "player_info_remove",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "player",
+                "type": "player_id"
+            }
+        ]
+    },
+    {
+        "id": "0x3E",
+        "header": "Player Info Update",
+        "packet": "player_info_update",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "number_of_players",
+                "type": "var_int"
+            },
+            {
+                "field": "players",
+                "type": "uuid"
+            },
+            {
+                "field": "player_actions",
+                "type": "array_of_player_actions"
+            }
+        ]
+    },
+    {
+        "id": "0x3F",
+        "header": "Look At",
+        "packet": "look_at",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "feet/eyes",
+                "type": "var_int_enum"
+            },
+            {
+                "field": "target_x",
+                "type": "double"
+            },
+            {
+                "field": "target_y",
+                "type": "double"
+            },
+            {
+                "field": "target_z",
+                "type": "double"
+            },
+            {
+                "field": "is_entity",
+                "type": "boolean"
+            },
+            {
+                "field": "entity_id",
+                "type": "optional_var_int"
+            },
+            {
+                "field": "entity_feet/eyes",
+                "type": "optional_var_int_enum"
+            }
+        ]
+    },
+    {
+        "id": "0x40",
+        "header": "Synchronize Player Position",
+        "packet": "synchronize_player_position",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "y",
+                "type": "double"
+            },
+            {
+                "field": "z",
+                "type": "double"
+            },
+            {
+                "field": "yaw",
+                "type": "float"
+            },
+            {
+                "field": "pitch",
+                "type": "float"
+            },
+            {
+                "field": "flags",
+                "type": "byte"
+            },
+            {
+                "field": "teleport_id",
+                "type": "var_int"
+            }
+        ]
+    },
+    {
+        "id": "0x41",
+        "header": "Update Recipe Book",
+        "packet": "update_recipe_book",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "action",
+                "type": "var_int"
+            },
+            {
+                "field": "crafting_recipe_book_open",
+                "type": "boolean"
+            },
+            {
+                "field": "crafting_recipe_book_filter_active",
+                "type": "boolean"
+            },
+            {
+                "field": "smelting_recipe_book_open",
+                "type": "boolean"
+            },
+            {
+                "field": "smelting_recipe_book_filter_active",
+                "type": "boolean"
+            },
+            {
+                "field": "blast_furnace_recipe_book_open",
+                "type": "boolean"
+            },
+            {
+                "field": "blast_furnace_recipe_book_filter_active",
+                "type": "boolean"
+            },
+            {
+                "field": "smoker_recipe_book_open",
+                "type": "boolean"
+            },
+            {
+                "field": "smoker_recipe_book_filter_active",
+                "type": "boolean"
+            },
+            {
+                "field": "array_size_1",
+                "type": "var_int"
+            },
+            {
+                "field": "recipe_ids",
+                "type": "array_of_identifier"
+            },
+            {
+                "field": "array_size_2",
+                "type": "optional_var_int"
+            },
+            {
+                "field": "recipe_ids",
+                "type": "optional_array_of_identifier"
+            }
+        ]
+    },
+    {
+        "id": "0x42",
+        "header": "Remove Entities",
+        "packet": "remove_entities",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "entity_ids",
+                "type": "array_of_var_int"
+            }
+        ]
+    },
+    {
+        "id": "0x43",
+        "header": "Remove Entity Effect",
+        "packet": "remove_entity_effect",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "effect_id",
+                "type": "var_int"
+            }
+        ]
+    },
+    {
+        "id": "0x44",
+        "header": "Reset Score",
+        "packet": "reset_score",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "has_objective_name",
+                "type": "boolean"
+            },
+            {
+                "field": "objective_name",
+                "type": "optional_string"
+            }
+        ]
+    },
+    {
+        "id": "0x45",
+        "header": "Remove Resource Pack (play)",
+        "packet": "remove_resource_pack",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "uuid",
+                "type": "optional_uuid"
+            }
+        ]
+    },
+    {
+        "id": "0x46",
+        "header": "Add Resource Pack (play)",
+        "packet": "add_resource_pack",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "url",
+                "type": "string"
+            },
+            {
+                "field": "hash",
+                "type": "string"
+            },
+            {
+                "field": "forced",
+                "type": "boolean"
+            },
+            {
+                "field": "has_prompt_message",
+                "type": "boolean"
+            },
+            {
+                "field": "prompt_message",
+                "type": "optional_text_component"
+            }
+        ]
+    },
+    {
+        "id": "0x48",
+        "header": "Set Head Rotation",
+        "packet": "set_head_rotation",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "head_yaw",
+                "type": "angle"
+            }
+        ]
+    },
+    {
+        "id": "0x49",
+        "header": "Update Section Blocks",
+        "packet": "update_section_blocks",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "blocks_array_size",
+                "type": "var_int"
+            },
+            {
+                "field": "blocks",
+                "type": "array_of_var_long"
+            }
+        ]
+    },
+    {
+        "id": "0x4A",
+        "header": "Select Advancements Tab",
+        "packet": "select_advancements_tab",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "identifier",
+                "type": "optional_identifier"
+            }
+        ]
+    },
+    {
+        "id": "0x4B",
+        "header": "Server Data",
+        "packet": "server_data",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "has_icon",
+                "type": "boolean"
+            },
+            {
+                "field": "size",
+                "type": "optional_var_int"
+            },
+            {
+                "field": "icon",
+                "type": "optional_byte_array"
+            }
+        ]
+    },
+    {
+        "id": "0x4D",
+        "header": "Set Border Center",
+        "packet": "set_border_center",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "z",
+                "type": "double"
+            }
+        ]
+    },
+    {
+        "id": "0x4E",
+        "header": "Set Border Lerp Size",
+        "packet": "set_border_lerp_size",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "new_diameter",
+                "type": "double"
+            },
+            {
+                "field": "speed",
+                "type": "var_long"
+            }
+        ]
+    },
+    {
+        "id": "0x54",
+        "header": "Set Center Chunk",
+        "packet": "set_center_chunk",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "chunk_z",
+                "type": "var_int"
+            }
+        ]
+    },
+    {
+        "id": "0x56",
+        "header": "Set Default Spawn Position",
+        "packet": "set_default_spawn_position",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "angle",
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "id": "0x57",
+        "header": "Display Objective",
+        "packet": "display_objective",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "score_name",
+                "type": "string"
+            }
+        ]
+    },
+    {
+        "id": "0x58",
+        "header": "Set Entity Metadata",
+        "packet": "set_entity_metadata",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "metadata",
+                "type": "entity_metadata"
+            }
+        ]
+    },
+    {
+        "id": "0x59",
+        "header": "Link Entities",
+        "packet": "link_entities",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "holding_entity_id",
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "id": "0x5A",
+        "header": "Set Entity Velocity",
+        "packet": "set_entity_velocity",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "velocity_x",
+                "type": "short"
+            },
+            {
+                "field": "velocity_y",
+                "type": "short"
+            },
+            {
+                "field": "velocity_z",
+                "type": "short"
+            }
+        ]
+    },
+    {
+        "id": "0x5B",
+        "header": "Set Equipment",
+        "packet": "set_equipment",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "equipment",
+                "type": "slot"
+            },
+            {
+                "field": "item",
+                "type": "slot"
+            }
+        ]
+    },
+    {
+        "id": "0x5C",
+        "header": "Set Experience",
+        "packet": "set_experience",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "level",
+                "type": "var_int"
+            },
+            {
+                "field": "total_experience",
+                "type": "var_int"
+            }
+        ]
+    },
+    {
+        "id": "0x5D",
+        "header": "Set Health",
+        "packet": "set_health",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "food",
+                "type": "var_int"
+            },
+            {
+                "field": "food_saturation",
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "id": "0x5E",
+        "header": "Update Objectives",
+        "packet": "update_objectives",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "mode",
+                "type": "byte"
+            },
+            {
+                "field": "objective_value",
+                "type": "optional_text_component"
+            },
+            {
+                "field": "type",
+                "type": "optional_var_int_enum"
+            },
+            {
+                "field": "has_number_format",
+                "type": "optional_boolean"
+            },
+            {
+                "field": "number_format",
+                "type": "optional_var_int_enum"
+            },
+            {
+                "field": "0:_blank",
+                "type": "no_fields"
+            },
+            {
+                "field": "1:_styled",
+                "type": "styling"
+            },
+            {
+                "field": "2:_fixed",
+                "type": "content"
+            }
+        ]
+    },
+    {
+        "id": "0x5F",
+        "header": "Set Passengers",
+        "packet": "set_passengers",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "passenger_count",
+                "type": "var_int"
+            },
+            {
+                "field": "passengers",
+                "type": "array_of_var_int"
+            }
+        ]
+    },
+    {
+        "id": "0x60",
+        "header": "Update Teams",
+        "packet": "update_teams",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "method",
+                "type": "byte"
+            },
+            {
+                "field": "0:_create_team",
+                "type": "team_display_name"
+            },
+            {
+                "field": "friendly_flags",
+                "type": "byte"
+            },
+            {
+                "field": "name_tag_visibility",
+                "type": "string_enum"
+            },
+            {
+                "field": "collision_rule",
+                "type": "string_enum"
+            },
+            {
+                "field": "team_color",
+                "type": "var_int_enum"
+            },
+            {
+                "field": "team_prefix",
+                "type": "text_component"
+            },
+            {
+                "field": "team_suffix",
+                "type": "text_component"
+            },
+            {
+                "field": "entity_count",
+                "type": "var_int"
+            },
+            {
+                "field": "entities",
+                "type": "array_of_string"
+            },
+            {
+                "field": "1:_remove_team",
+                "type": "no_fields"
+            },
+            {
+                "field": "2:_update_team_info",
+                "type": "team_display_name"
+            },
+            {
+                "field": "friendly_flags",
+                "type": "byte"
+            },
+            {
+                "field": "name_tag_visibility",
+                "type": "string_enum"
+            },
+            {
+                "field": "collision_rule",
+                "type": "string_enum"
+            },
+            {
+                "field": "team_color",
+                "type": "var_int_enum"
+            },
+            {
+                "field": "team_prefix",
+                "type": "text_component"
+            },
+            {
+                "field": "team_suffix",
+                "type": "text_component"
+            },
+            {
+                "field": "3:_add_entities_to_team",
+                "type": "entity_count"
+            },
+            {
+                "field": "entities",
+                "type": "array_of_string"
+            },
+            {
+                "field": "4:_remove_entities_from_team",
+                "type": "entity_count"
+            },
+            {
+                "field": "entities",
+                "type": "array_of_string"
+            }
+        ]
+    },
+    {
+        "id": "0x61",
+        "header": "Update Score",
+        "packet": "update_score",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "objective_name",
+                "type": "string"
+            },
+            {
+                "field": "value",
+                "type": "var_int"
+            },
+            {
+                "field": "has_display_name",
+                "type": "boolean"
+            },
+            {
+                "field": "display_name",
+                "type": "optional_text_component"
+            },
+            {
+                "field": "has_number_format",
+                "type": "boolean"
+            },
+            {
+                "field": "number_format",
+                "type": "optional_var_int_enum"
+            },
+            {
+                "field": "0:_blank",
+                "type": "no_fields"
+            },
+            {
+                "field": "1:_styled",
+                "type": "styling"
+            },
+            {
+                "field": "2:_fixed",
+                "type": "content"
+            }
+        ]
+    },
+    {
+        "id": "0x64",
+        "header": "Update Time",
+        "packet": "update_time",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "time_of_day",
+                "type": "long"
+            }
+        ]
+    },
+    {
+        "id": "0x66",
+        "header": "Set Title Animation Times",
+        "packet": "set_title_animation_times",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "stay",
+                "type": "int"
+            },
+            {
+                "field": "fade_out",
+                "type": "int"
+            }
+        ]
+    },
+    {
+        "id": "0x67",
+        "header": "Entity Sound Effect",
+        "packet": "entity_sound_effect",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "sound_name",
+                "type": "optional_identifier"
+            },
+            {
+                "field": "has_fixed_range",
+                "type": "optional_boolean"
+            },
+            {
+                "field": "range",
+                "type": "optional_float"
+            },
+            {
+                "field": "sound_category",
+                "type": "var_int_enum"
+            },
+            {
+                "field": "entity_id",
+                "type": "var_int"
+            },
+            {
+                "field": "volume",
+                "type": "float"
+            },
+            {
+                "field": "pitch",
+                "type": "float"
+            },
+            {
+                "field": "seed",
+                "type": "long"
+            }
+        ]
+    },
+    {
+        "id": "0x68",
+        "header": "Sound Effect",
+        "packet": "sound_effect",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "sound_name",
+                "type": "optional_identifier"
+            },
+            {
+                "field": "has_fixed_range",
+                "type": "optional_boolean"
+            },
+            {
+                "field": "range",
+                "type": "optional_float"
+            },
+            {
+                "field": "sound_category",
+                "type": "var_int_enum"
+            },
+            {
+                "field": "effect_position_x",
+                "type": "int"
+            },
+            {
+                "field": "effect_position_y",
+                "type": "int"
+            },
+            {
+                "field": "effect_position_z",
+                "type": "int"
+            },
+            {
+                "field": "volume",
+                "type": "float"
+            },
+            {
+                "field": "pitch",
+                "type": "float"
+            },
+            {
+                "field": "seed",
+                "type": "long"
+            }
+        ]
+    },
+    {
+        "id": "0x6A",
+        "header": "Stop Sound",
+        "packet": "stop_sound",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "source",
+                "type": "optional_var_int_enum"
+            },
+            {
+                "field": "sound",
+                "type": "optional_identifier"
+            }
+        ]
+    },
+    {
+        "id": "0x6B",
+        "header": "Store Cookie (play)",
+        "packet": "store_cookie",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "payload_length",
+                "type": "var_int"
+            },
+            {
+                "field": "payload",
+                "type": "byte_array"
+            }
+        ]
+    },
+    {
+        "id": "0x6C",
+        "header": "System Chat Message",
+        "packet": "system_chat_message",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "overlay",
+                "type": "boolean"
+            }
+        ]
+    },
+    {
+        "id": "0x6D",
+        "header": "Set Tab List Header And Footer",
+        "packet": "set_tab_list_header_and_footer",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "footer",
+                "type": "text_component"
+            }
+        ]
+    },
+    {
+        "id": "0x6E",
+        "header": "Tag Query Response",
+        "packet": "tag_query_response",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "nbt",
+                "type": "nbt"
+            }
+        ]
+    },
+    {
+        "id": "0x6F",
+        "header": "Pickup Item",
+        "packet": "pickup_item",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "collector_entity_id",
+                "type": "var_int"
+            },
+            {
+                "field": "pickup_item_count",
+                "type": "var_int"
+            }
+        ]
+    },
+    {
+        "id": "0x70",
+        "header": "Teleport Entity",
+        "packet": "teleport_entity",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "x",
+                "type": "double"
+            },
+            {
+                "field": "y",
+                "type": "double"
+            },
+            {
+                "field": "z",
+                "type": "double"
+            },
+            {
+                "field": "yaw",
+                "type": "angle"
+            },
+            {
+                "field": "pitch",
+                "type": "angle"
+            },
+            {
+                "field": "on_ground",
+                "type": "boolean"
+            }
+        ]
+    },
+    {
+        "id": "0x71",
+        "header": "Set Ticking State",
+        "packet": "set_ticking_state",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "is_frozen",
+                "type": "boolean"
+            }
+        ]
+    },
+    {
+        "id": "0x73",
+        "header": "Transfer (play)",
+        "packet": "transfer",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "port",
+                "type": "var_int"
+            }
+        ]
+    },
+    {
+        "id": "0x74",
+        "header": "Update Advancements",
+        "packet": "update_advancements",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "mapping_size",
+                "type": "var_int"
+            },
+            {
+                "field": "advancement_mapping",
+                "type": "key"
+            },
+            {
+                "field": "value",
+                "type": "advancement"
+            },
+            {
+                "field": "list_size",
+                "type": "var_int"
+            },
+            {
+                "field": "identifiers",
+                "type": "array_of_identifier"
+            },
+            {
+                "field": "progress_size",
+                "type": "var_int"
+            },
+            {
+                "field": "progress_mapping",
+                "type": "key"
+            },
+            {
+                "field": "value",
+                "type": "advancement_progress"
+            }
+        ]
+    },
+    {
+        "id": "0x75",
+        "header": "Update Attributes",
+        "packet": "update_attributes",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "number_of_properties",
+                "type": "var_int"
+            },
+            {
+                "field": "property",
+                "type": "id"
+            },
+            {
+                "field": "value",
+                "type": "double"
+            },
+            {
+                "field": "number_of_modifiers",
+                "type": "var_int"
+            },
+            {
+                "field": "modifiers",
+                "type": "array_of_modifier_data"
+            }
+        ]
+    },
+    {
+        "id": "0x76",
+        "header": "Entity Effect",
+        "packet": "entity_effect",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "effect_id",
+                "type": "var_int"
+            },
+            {
+                "field": "amplifier",
+                "type": "var_int"
+            },
+            {
+                "field": "duration",
+                "type": "var_int"
+            },
+            {
+                "field": "flags",
+                "type": "byte"
+            }
+        ]
+    },
+    {
+        "id": "0x77",
+        "header": "Update Recipes",
+        "packet": "update_recipes",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "recipe",
+                "type": "recipe_id"
+            },
+            {
+                "field": "type_id",
+                "type": "var_int_enum"
+            },
+            {
+                "field": "data",
+                "type": "varies"
+            }
+        ]
+    },
+    {
+        "id": "0x78",
+        "header": "Update Tags (play)",
+        "packet": "update_tags",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "array_of_tags",
+                "type": "registry"
+            },
+            {
+                "field": "array_of_tag",
+                "type": ""
+            }
+        ]
+    },
+    {
+        "id": "0x79",
+        "header": "Projectile Power",
+        "packet": "projectile_power",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "power_x",
+                "type": "double"
+            },
+            {
+                "field": "power_y",
+                "type": "double"
+            },
+            {
+                "field": "power_z",
+                "type": "double"
+            }
+        ]
+    },
+    {
+        "id": "0x7A",
+        "header": "Custom Report Details",
+        "packet": "custom_report_details",
+        "protocol_state": "configuration",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "details",
+                "type": "title"
+            },
+            {
+                "field": "description",
+                "type": "string"
+            }
+        ]
+    },
+    {
+        "id": "0x7B",
+        "header": "Server Links",
+        "packet": "server_links",
+        "protocol_state": "configuration",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "links",
+                "type": "is_built_in"
+            },
+            {
+                "field": "label",
+                "type": "var_int_enum_text_component"
+            },
+            {
+                "field": "url",
+                "type": "string"
+            }
+        ]
+    },
+    {
+        "id": "0x01",
+        "header": "Query Block Entity Tag",
+        "packet": "query_block_entity_tag",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
+            {
+                "field": "location",
+                "type": "position"
+            }
+        ]
+    },
+    {
+        "id": "0x05",
+        "header": "Signed Chat Command",
+        "packet": "signed_chat_command",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
+            {
+                "field": "timestamp",
+                "type": "long"
+            },
+            {
+                "field": "salt",
+                "type": "long"
+            },
+            {
+                "field": "array_length",
+                "type": "var_int"
+            },
+            {
+                "field": "array_of_argument_signatures",
+                "type": "argument_name"
+            },
+            {
+                "field": "signature",
+                "type": "byte_array"
+            },
+            {
+                "field": "message_count",
+                "type": "var_int"
+            },
+            {
+                "field": "acknowledged",
+                "type": "fixed_bit_set"
+            }
+        ]
+    },
+    {
+        "id": "0x06",
+        "header": "Chat Message",
+        "packet": "chat_message",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
+            {
+                "field": "timestamp",
+                "type": "long"
+            },
+            {
+                "field": "salt",
+                "type": "long"
+            },
+            {
+                "field": "has_signature",
+                "type": "boolean"
+            },
+            {
+                "field": "signature",
+                "type": "optional_byte_array"
+            },
+            {
+                "field": "message_count",
+                "type": "var_int"
+            },
+            {
+                "field": "acknowledged",
+                "type": "fixed_bit_set"
+            }
+        ]
+    },
+    {
+        "id": "0x07",
+        "header": "Player Session",
+        "packet": "player_session",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
+            {
+                "field": "public_key",
+                "type": "expires_at"
+            },
+            {
+                "field": "public_key_length",
+                "type": "var_int"
+            },
+            {
+                "field": "public_key",
+                "type": "byte_array"
+            },
+            {
+                "field": "key_signature_length",
+                "type": "var_int"
+            },
+            {
+                "field": "key_signature",
+                "type": "byte_array"
+            }
+        ]
+    },
+    {
+        "id": "0x0A",
+        "header": "Client Information (play)",
+        "packet": "client_information",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
+            {
+                "field": "view_distance",
+                "type": "byte"
+            },
+            {
+                "field": "chat_mode",
+                "type": "var_int_enum"
+            },
+            {
+                "field": "chat_colors",
+                "type": "boolean"
+            },
+            {
+                "field": "displayed_skin_parts",
+                "type": "unsigned_byte"
+            },
+            {
+                "field": "main_hand",
+                "type": "var_int_enum"
+            },
+            {
+                "field": "enable_text_filtering",
+                "type": "boolean"
+            },
+            {
+                "field": "allow_server_listings",
+                "type": "boolean"
+            }
+        ]
+    },
+    {
+        "id": "0x0B",
+        "header": "Command Suggestions Request",
+        "packet": "command_suggestions_request",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
+            {
+                "field": "text",
+                "type": "string"
+            }
+        ]
+    },
+    {
+        "id": "0x0D",
+        "header": "Click Container Button",
+        "packet": "click_container_button",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
+            {
+                "field": "button_id",
+                "type": "byte"
+            }
+        ]
+    },
+    {
+        "id": "0x0E",
+        "header": "Click Container",
+        "packet": "click_container",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
+            {
+                "field": "state_id",
+                "type": "var_int"
+            },
+            {
+                "field": "slot",
+                "type": "short"
+            },
+            {
+                "field": "button",
+                "type": "byte"
+            },
+            {
+                "field": "mode",
+                "type": "var_int_enum"
+            },
+            {
+                "field": "length_of_the_array",
+                "type": "var_int"
+            },
+            {
+                "field": "array_of_changed_slots",
+                "type": "slot_number"
+            },
+            {
+                "field": "slot_data",
+                "type": "slot"
+            },
+            {
+                "field": "carried_item",
+                "type": "slot"
+            }
+        ]
+    },
+    {
+        "id": "0x10",
+        "header": "Change Container Slot State",
+        "packet": "change_container_slot_state",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
+            {
+                "field": "window_id",
+                "type": "var_int"
+            },
+            {
+                "field": "state",
+                "type": "boolean"
+            }
+        ]
+    },
+    {
+        "id": "0x11",
+        "header": "Cookie Response (play)",
+        "packet": "cookie_response",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
+            {
+                "field": "has_payload",
+                "type": "boolean"
+            },
+            {
+                "field": "payload_length",
+                "type": "optional_var_int"
+            },
+            {
+                "field": "payload",
+                "type": "optional_byte_array"
+            }
+        ]
+    },
+    {
+        "id": "0x12",
+        "header": "Serverbound Plugin Message (play)",
+        "packet": "serverbound_plugin_message",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
+            {
+                "field": "data",
+                "type": "byte_array"
+            }
+        ]
+    },
+    {
+        "id": "0x14",
+        "header": "Edit Book",
+        "packet": "edit_book",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
+            {
+                "field": "count",
+                "type": "var_int"
+            },
+            {
+                "field": "entries",
+                "type": "array_of_string"
+            },
+            {
+                "field": "has_title",
+                "type": "boolean"
+            },
+            {
+                "field": "title",
+                "type": "optional_string"
+            }
+        ]
+    },
+    {
+        "id": "0x15",
+        "header": "Query Entity Tag",
+        "packet": "query_entity_tag",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
+            {
+                "field": "entity_id",
+                "type": "var_int"
+            }
+        ]
+    },
+    {
+        "id": "0x16",
+        "header": "Interact",
+        "packet": "interact",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
+            {
+                "field": "type",
+                "type": "var_int_enum"
+            },
+            {
+                "field": "target_x",
+                "type": "optional_float"
+            },
+            {
+                "field": "target_y",
+                "type": "optional_float"
+            },
+            {
+                "field": "target_z",
+                "type": "optional_float"
+            },
+            {
+                "field": "hand",
+                "type": "optional_var_int_enum"
+            },
+            {
+                "field": "sneaking",
+                "type": "boolean"
+            }
+        ]
+    },
+    {
+        "id": "0x17",
+        "header": "Jigsaw Generate",
+        "packet": "jigsaw_generate",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
+            {
+                "field": "levels",
+                "type": "var_int"
+            },
+            {
+                "field": "keep_jigsaws",
+                "type": "boolean"
+            }
+        ]
+    },
+    {
+        "id": "0x1A",
+        "header": "Set Player Position",
+        "packet": "set_player_position",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
+            {
+                "field": "feet_y",
+                "type": "double"
+            },
+            {
+                "field": "z",
+                "type": "double"
+            },
+            {
+                "field": "on_ground",
+                "type": "boolean"
+            }
+        ]
+    },
+    {
+        "id": "0x1B",
+        "header": "Set Player Position and Rotation",
+        "packet": "set_player_position_and_rotation",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
+            {
+                "field": "feet_y",
+                "type": "double"
+            },
+            {
+                "field": "z",
+                "type": "double"
+            },
+            {
+                "field": "yaw",
+                "type": "float"
+            },
+            {
+                "field": "pitch",
+                "type": "float"
+            },
+            {
+                "field": "on_ground",
+                "type": "boolean"
+            }
+        ]
+    },
+    {
+        "id": "0x1C",
+        "header": "Set Player Rotation",
+        "packet": "set_player_rotation",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
+            {
+                "field": "pitch",
+                "type": "float"
+            },
+            {
+                "field": "on_ground",
+                "type": "boolean"
+            }
+        ]
+    },
+    {
+        "id": "0x1E",
+        "header": "Move Vehicle",
+        "packet": "move_vehicle",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
+            {
+                "field": "y",
+                "type": "double"
+            },
+            {
+                "field": "z",
+                "type": "double"
+            },
+            {
+                "field": "yaw",
+                "type": "float"
+            },
+            {
+                "field": "pitch",
+                "type": "float"
+            }
+        ]
+    },
+    {
+        "id": "0x1F",
+        "header": "Paddle Boat",
+        "packet": "paddle_boat",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
+            {
+                "field": "right_paddle_turning",
+                "type": "boolean"
+            }
+        ]
+    },
+    {
+        "id": "0x22",
+        "header": "Place Recipe",
+        "packet": "place_recipe",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
+            {
+                "field": "recipe",
+                "type": "identifier"
+            },
+            {
+                "field": "make_all",
+                "type": "boolean"
+            }
+        ]
+    },
+    {
+        "id": "0x24",
+        "header": "Player Action",
+        "packet": "player_action",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
+            {
+                "field": "location",
+                "type": "position"
+            },
+            {
+                "field": "face",
+                "type": "byte_enum"
+            },
+            {
+                "field": "sequence",
+                "type": "var_int"
+            }
+        ]
+    },
+    {
+        "id": "0x25",
+        "header": "Player Command",
+        "packet": "player_command",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
+            {
+                "field": "action_id",
+                "type": "var_int_enum"
+            },
+            {
+                "field": "jump_boost",
+                "type": "var_int"
+            }
+        ]
+    },
+    {
+        "id": "0x26",
+        "header": "Player Input",
+        "packet": "player_input",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
+            {
+                "field": "forward",
+                "type": "float"
+            },
+            {
+                "field": "flags",
+                "type": "unsigned_byte"
+            }
+        ]
+    },
+    {
+        "id": "0x28",
+        "header": "Change Recipe Book Settings",
+        "packet": "change_recipe_book_settings",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
+            {
+                "field": "book_open",
+                "type": "boolean"
+            },
+            {
+                "field": "filter_active",
+                "type": "boolean"
+            }
+        ]
+    },
+    {
+        "id": "0x2B",
+        "header": "Resource Pack Response (play)",
+        "packet": "resource_pack_response",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
+            {
+                "field": "uuid",
+                "type": "uuid"
+            },
+            {
+                "field": "result",
+                "type": "var_int_enum"
+            }
+        ]
+    },
+    {
+        "id": "0x2C",
+        "header": "Seen Advancements",
+        "packet": "seen_advancements",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
+            {
+                "field": "tab_id",
+                "type": "optional_identifier"
+            }
+        ]
+    },
+    {
+        "id": "0x2E",
+        "header": "Set Beacon Effect",
+        "packet": "set_beacon_effect",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
+            {
+                "field": "primary_effect",
+                "type": "optional_var_int"
+            },
+            {
+                "field": "has_secondary_effect",
+                "type": "boolean"
+            },
+            {
+                "field": "secondary_effect",
+                "type": "optional_var_int"
+            }
+        ]
+    },
+    {
+        "id": "0x30",
+        "header": "Program Command Block",
+        "packet": "program_command_block",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
+            {
+                "field": "location",
+                "type": "position"
+            },
+            {
+                "field": "command",
+                "type": "string"
+            },
+            {
+                "field": "mode",
+                "type": "var_int_enum"
+            },
+            {
+                "field": "flags",
+                "type": "byte"
+            }
+        ]
+    },
+    {
+        "id": "0x31",
+        "header": "Program Command Block Minecart",
+        "packet": "program_command_block_minecart",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
+            {
+                "field": "command",
+                "type": "string"
+            },
+            {
+                "field": "track_output",
+                "type": "boolean"
+            }
+        ]
+    },
+    {
+        "id": "0x32",
+        "header": "Set Creative Mode Slot",
+        "packet": "set_creative_mode_slot",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
+            {
+                "field": "clicked_item",
+                "type": "slot"
+            }
+        ]
+    },
+    {
+        "id": "0x33",
+        "header": "Program Jigsaw Block",
+        "packet": "program_jigsaw_block",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
+            {
+                "field": "name",
+                "type": "identifier"
+            },
+            {
+                "field": "target",
+                "type": "identifier"
+            },
+            {
+                "field": "pool",
+                "type": "identifier"
+            },
+            {
+                "field": "final_state",
+                "type": "string"
+            },
+            {
+                "field": "joint_type",
+                "type": "string"
+            },
+            {
+                "field": "selection_priority",
+                "type": "var_int"
+            },
+            {
+                "field": "placement_priority",
+                "type": "var_int"
+            }
+        ]
+    },
+    {
+        "id": "0x34",
+        "header": "Program Structure Block",
+        "packet": "program_structure_block",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
+            {
+                "field": "location",
+                "type": "position"
+            },
+            {
+                "field": "action",
+                "type": "var_int_enum"
+            },
+            {
+                "field": "mode",
+                "type": "var_int_enum"
+            },
+            {
+                "field": "name",
+                "type": "string"
+            },
+            {
+                "field": "offset_x",
+                "type": "byte"
+            },
+            {
+                "field": "offset_y",
+                "type": "byte"
+            },
+            {
+                "field": "offset_z",
+                "type": "byte"
+            },
+            {
+                "field": "size_x",
+                "type": "byte"
+            },
+            {
+                "field": "size_y",
+                "type": "byte"
+            },
+            {
+                "field": "size_z",
+                "type": "byte"
+            },
+            {
+                "field": "mirror",
+                "type": "var_int_enum"
+            },
+            {
+                "field": "rotation",
+                "type": "var_int_enum"
+            },
+            {
+                "field": "metadata",
+                "type": "string"
+            },
+            {
+                "field": "integrity",
+                "type": "float"
+            },
+            {
+                "field": "seed",
+                "type": "var_long"
+            },
+            {
+                "field": "flags",
+                "type": "byte"
+            }
+        ]
+    },
+    {
+        "id": "0x35",
+        "header": "Update Sign",
+        "packet": "update_sign",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
+            {
+                "field": "is_front_text",
+                "type": "boolean"
+            },
+            {
+                "field": "line_1",
+                "type": "string"
+            },
+            {
+                "field": "line_2",
+                "type": "string"
+            },
+            {
+                "field": "line_3",
+                "type": "string"
+            },
+            {
+                "field": "line_4",
+                "type": "string"
+            }
+        ]
+    },
+    {
+        "id": "0x38",
+        "header": "Use Item On",
+        "packet": "use_item_on",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
+            {
+                "field": "location",
+                "type": "position"
+            },
+            {
+                "field": "face",
+                "type": "var_int_enum"
+            },
+            {
+                "field": "cursor_position_x",
+                "type": "float"
+            },
+            {
+                "field": "cursor_position_y",
+                "type": "float"
+            },
+            {
+                "field": "cursor_position_z",
+                "type": "float"
+            },
+            {
+                "field": "inside_block",
+                "type": "boolean"
+            },
+            {
+                "field": "sequence",
+                "type": "var_int"
+            }
+        ]
+    },
+    {
+        "id": "0x39",
+        "header": "Use Item",
+        "packet": "use_item",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
+            {
+                "field": "sequence",
+                "type": "var_int"
+            }
+        ]
+    }
+]
