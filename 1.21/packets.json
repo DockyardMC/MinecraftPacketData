@@ -21,6 +21,15 @@
         ]
     },
     {
+        "id": "0xFE",
+        "header": "Legacy Server List Ping",
+        "packet": "legacy_server_list_ping",
+        "protocol_state": "handshaking",
+        "bound_to": "server",
+        "content": [
+        ]
+    },
+    {
         "id": "0x00",
         "header": "Status Response",
         "packet": "status_response",
@@ -31,6 +40,42 @@
                 "field": "json_response",
                 "type": "string"
             }
+        ]
+    },
+    {
+        "id": "0x01",
+        "header": "Ping Response (status)",
+        "packet": "ping_response",
+        "protocol_state": "status",
+        "bound_to": "client",
+        "content": [
+        ]
+    },
+    {
+        "id": "0x00",
+        "header": "Status Request",
+        "packet": "status_request",
+        "protocol_state": "status",
+        "bound_to": "server",
+        "content": [
+        ]
+    },
+    {
+        "id": "0x01",
+        "header": "Ping Request (status)",
+        "packet": "ping_request",
+        "protocol_state": "status",
+        "bound_to": "server",
+        "content": [
+        ]
+    },
+    {
+        "id": "0x00",
+        "header": "Disconnect (login)",
+        "packet": "disconnect",
+        "protocol_state": "login",
+        "bound_to": "client",
+        "content": [
         ]
     },
     {
@@ -100,6 +145,15 @@
         ]
     },
     {
+        "id": "0x03",
+        "header": "Set Compression",
+        "packet": "set_compression",
+        "protocol_state": "login",
+        "bound_to": "client",
+        "content": [
+        ]
+    },
+    {
         "id": "0x04",
         "header": "Login Plugin Request",
         "packet": "login_plugin_request",
@@ -114,6 +168,15 @@
                 "field": "data",
                 "type": "byte_array"
             }
+        ]
+    },
+    {
+        "id": "0x05",
+        "header": "Cookie Request (login)",
+        "packet": "cookie_request",
+        "protocol_state": "login",
+        "bound_to": "client",
+        "content": [
         ]
     },
     {
@@ -168,6 +231,15 @@
         ]
     },
     {
+        "id": "0x03",
+        "header": "Login Acknowledged",
+        "packet": "login_acknowledged",
+        "protocol_state": "login",
+        "bound_to": "server",
+        "content": [
+        ]
+    },
+    {
         "id": "0x04",
         "header": "Cookie Response (login)",
         "packet": "cookie_response",
@@ -189,6 +261,15 @@
         ]
     },
     {
+        "id": "0x00",
+        "header": "Cookie Request (configuration)",
+        "packet": "cookie_request",
+        "protocol_state": "configuration",
+        "bound_to": "client",
+        "content": [
+        ]
+    },
+    {
         "id": "0x01",
         "header": "Clientbound Plugin Message (configuration)",
         "packet": "clientbound_plugin_message",
@@ -199,6 +280,51 @@
                 "field": "data",
                 "type": "byte_array"
             }
+        ]
+    },
+    {
+        "id": "0x02",
+        "header": "Disconnect (configuration)",
+        "packet": "disconnect",
+        "protocol_state": "configuration",
+        "bound_to": "client",
+        "content": [
+        ]
+    },
+    {
+        "id": "0x03",
+        "header": "Finish Configuration",
+        "packet": "finish_configuration",
+        "protocol_state": "configuration",
+        "bound_to": "client",
+        "content": [
+        ]
+    },
+    {
+        "id": "0x04",
+        "header": "Clientbound Keep Alive (configuration)",
+        "packet": "clientbound_keep_alive",
+        "protocol_state": "configuration",
+        "bound_to": "client",
+        "content": [
+        ]
+    },
+    {
+        "id": "0x05",
+        "header": "Ping (configuration)",
+        "packet": "ping",
+        "protocol_state": "configuration",
+        "bound_to": "client",
+        "content": [
+        ]
+    },
+    {
+        "id": "0x06",
+        "header": "Reset Chat",
+        "packet": "reset_chat",
+        "protocol_state": "configuration",
+        "bound_to": "client",
+        "content": [
         ]
     },
     {
@@ -379,7 +505,7 @@
             },
             {
                 "field": "label",
-                "type": "var_int_enum_text_component"
+                "type": "var_int_enum:text_component"
             },
             {
                 "field": "url",
@@ -459,6 +585,33 @@
         ]
     },
     {
+        "id": "0x03",
+        "header": "Acknowledge Finish Configuration",
+        "packet": "acknowledge_finish_configuration",
+        "protocol_state": "configuration",
+        "bound_to": "server",
+        "content": [
+        ]
+    },
+    {
+        "id": "0x04",
+        "header": "Serverbound Keep Alive (configuration)",
+        "packet": "serverbound_keep_alive",
+        "protocol_state": "configuration",
+        "bound_to": "server",
+        "content": [
+        ]
+    },
+    {
+        "id": "0x05",
+        "header": "Pong (configuration)",
+        "packet": "pong",
+        "protocol_state": "configuration",
+        "bound_to": "server",
+        "content": [
+        ]
+    },
+    {
         "id": "0x06",
         "header": "Resource Pack Response (configuration)",
         "packet": "resource_pack_response",
@@ -494,6 +647,15 @@
                 "field": "version",
                 "type": "string"
             }
+        ]
+    },
+    {
+        "id": "0x00",
+        "header": "Bundle Delimiter",
+        "packet": "bundle_delimiter",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
         ]
     },
     {
@@ -602,6 +764,15 @@
                 "field": "value",
                 "type": "var_int"
             }
+        ]
+    },
+    {
+        "id": "0x05",
+        "header": "Acknowledge Block Change",
+        "packet": "acknowledge_block_change",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
         ]
     },
     {
@@ -743,6 +914,24 @@
         ]
     },
     {
+        "id": "0x0C",
+        "header": "Chunk Batch Finished",
+        "packet": "chunk_batch_finished",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+        ]
+    },
+    {
+        "id": "0x0D",
+        "header": "Chunk Batch Start",
+        "packet": "chunk_batch_start",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+        ]
+    },
+    {
         "id": "0x0E",
         "header": "Chunk Biomes",
         "packet": "chunk_biomes",
@@ -769,6 +958,15 @@
                 "field": "data",
                 "type": "byte_array"
             }
+        ]
+    },
+    {
+        "id": "0x0F",
+        "header": "Clear Titles",
+        "packet": "clear_titles",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
         ]
     },
     {
@@ -823,6 +1021,15 @@
                 "field": "root_index",
                 "type": "var_int"
             }
+        ]
+    },
+    {
+        "id": "0x12",
+        "header": "Close Container",
+        "packet": "close_container",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
         ]
     },
     {
@@ -882,6 +1089,15 @@
                 "field": "slot_data",
                 "type": "slot"
             }
+        ]
+    },
+    {
+        "id": "0x16",
+        "header": "Cookie Request (play)",
+        "packet": "cookie_request",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
         ]
     },
     {
@@ -996,6 +1212,15 @@
                 "field": "signature",
                 "type": "optional_byte_array"
             }
+        ]
+    },
+    {
+        "id": "0x1D",
+        "header": "Disconnect (play)",
+        "packet": "disconnect",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
         ]
     },
     {
@@ -1207,6 +1432,15 @@
         ]
     },
     {
+        "id": "0x26",
+        "header": "Clientbound Keep Alive (play)",
+        "packet": "clientbound_keep_alive",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+        ]
+    },
+    {
         "id": "0x27",
         "header": "Chunk Data and Update Light",
         "packet": "chunk_data_and_update_light",
@@ -1288,6 +1522,27 @@
             {
                 "field": "block_light_array",
                 "type": "byte_array"
+            }
+        ]
+    },
+    {
+        "id": "0x28",
+        "header": "World Event",
+        "packet": "world_event",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "location",
+                "type": "position"
+            },
+            {
+                "field": "data",
+                "type": "int"
+            },
+            {
+                "field": "disable_relative_volume",
+                "type": "boolean"
             }
         ]
     },
@@ -1390,6 +1645,99 @@
             {
                 "field": "block_light_array",
                 "type": "byte_array"
+            }
+        ]
+    },
+    {
+        "id": "0x2B",
+        "header": "Login (play)",
+        "packet": "login",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "is_hardcore",
+                "type": "boolean"
+            },
+            {
+                "field": "dimension_count",
+                "type": "var_int"
+            },
+            {
+                "field": "dimension_names",
+                "type": "array_of_identifier"
+            },
+            {
+                "field": "max_players",
+                "type": "var_int"
+            },
+            {
+                "field": "view_distance",
+                "type": "var_int"
+            },
+            {
+                "field": "simulation_distance",
+                "type": "var_int"
+            },
+            {
+                "field": "reduced_debug_info",
+                "type": "boolean"
+            },
+            {
+                "field": "enable_respawn_screen",
+                "type": "boolean"
+            },
+            {
+                "field": "do_limited_crafting",
+                "type": "boolean"
+            },
+            {
+                "field": "dimension_type",
+                "type": "var_int"
+            },
+            {
+                "field": "dimension_name",
+                "type": "identifier"
+            },
+            {
+                "field": "hashed_seed",
+                "type": "long"
+            },
+            {
+                "field": "game_mode",
+                "type": "unsigned_byte"
+            },
+            {
+                "field": "previous_game_mode",
+                "type": "byte"
+            },
+            {
+                "field": "is_debug",
+                "type": "boolean"
+            },
+            {
+                "field": "is_flat",
+                "type": "boolean"
+            },
+            {
+                "field": "has_death_location",
+                "type": "boolean"
+            },
+            {
+                "field": "death_dimension_name",
+                "type": "optional_identifier"
+            },
+            {
+                "field": "death_location",
+                "type": "optional_position"
+            },
+            {
+                "field": "portal_cooldown",
+                "type": "var_int"
+            },
+            {
+                "field": "enforces_secure_chat",
+                "type": "boolean"
             }
         ]
     },
@@ -1640,6 +1988,15 @@
         ]
     },
     {
+        "id": "0x32",
+        "header": "Open Book",
+        "packet": "open_book",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+        ]
+    },
+    {
         "id": "0x33",
         "header": "Open Screen",
         "packet": "open_screen",
@@ -1667,6 +2024,24 @@
                 "field": "is_front_text",
                 "type": "boolean"
             }
+        ]
+    },
+    {
+        "id": "0x35",
+        "header": "Ping (play)",
+        "packet": "ping",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+        ]
+    },
+    {
+        "id": "0x36",
+        "header": "Ping Response (play)",
+        "packet": "ping_response",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
         ]
     },
     {
@@ -1774,6 +2149,24 @@
                 "field": "target_name",
                 "type": "optional_text_component"
             }
+        ]
+    },
+    {
+        "id": "0x3A",
+        "header": "End Combat",
+        "packet": "end_combat",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+        ]
+    },
+    {
+        "id": "0x3B",
+        "header": "Enter Combat",
+        "packet": "enter_combat",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
         ]
     },
     {
@@ -2040,6 +2433,59 @@
         ]
     },
     {
+        "id": "0x47",
+        "header": "Respawn",
+        "packet": "respawn",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+            {
+                "field": "dimension_name",
+                "type": "identifier"
+            },
+            {
+                "field": "hashed_seed",
+                "type": "long"
+            },
+            {
+                "field": "game_mode",
+                "type": "unsigned_byte"
+            },
+            {
+                "field": "previous_game_mode",
+                "type": "byte"
+            },
+            {
+                "field": "is_debug",
+                "type": "boolean"
+            },
+            {
+                "field": "is_flat",
+                "type": "boolean"
+            },
+            {
+                "field": "has_death_location",
+                "type": "boolean"
+            },
+            {
+                "field": "death_dimension_name",
+                "type": "optional_identifier"
+            },
+            {
+                "field": "death_location",
+                "type": "optional_position"
+            },
+            {
+                "field": "portal_cooldown",
+                "type": "var_int"
+            },
+            {
+                "field": "data_kept",
+                "type": "byte"
+            }
+        ]
+    },
+    {
         "id": "0x48",
         "header": "Set Head Rotation",
         "packet": "set_head_rotation",
@@ -2104,6 +2550,15 @@
         ]
     },
     {
+        "id": "0x4C",
+        "header": "Set Action Bar Text",
+        "packet": "set_action_bar_text",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+        ]
+    },
+    {
         "id": "0x4D",
         "header": "Set Border Center",
         "packet": "set_border_center",
@@ -2134,6 +2589,51 @@
         ]
     },
     {
+        "id": "0x4F",
+        "header": "Set Border Size",
+        "packet": "set_border_size",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+        ]
+    },
+    {
+        "id": "0x50",
+        "header": "Set Border Warning Delay",
+        "packet": "set_border_warning_delay",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+        ]
+    },
+    {
+        "id": "0x51",
+        "header": "Set Border Warning Distance",
+        "packet": "set_border_warning_distance",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+        ]
+    },
+    {
+        "id": "0x52",
+        "header": "Set Camera",
+        "packet": "set_camera",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+        ]
+    },
+    {
+        "id": "0x53",
+        "header": "Set Held Item (clientbound)",
+        "packet": "set_held_item",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+        ]
+    },
+    {
         "id": "0x54",
         "header": "Set Center Chunk",
         "packet": "set_center_chunk",
@@ -2144,6 +2644,15 @@
                 "field": "chunk_z",
                 "type": "var_int"
             }
+        ]
+    },
+    {
+        "id": "0x55",
+        "header": "Set Render Distance",
+        "packet": "set_render_distance",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
         ]
     },
     {
@@ -2471,6 +2980,24 @@
         ]
     },
     {
+        "id": "0x62",
+        "header": "Set Simulation Distance",
+        "packet": "set_simulation_distance",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+        ]
+    },
+    {
+        "id": "0x63",
+        "header": "Set Subtitle Text",
+        "packet": "set_subtitle_text",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
+        ]
+    },
+    {
         "id": "0x64",
         "header": "Update Time",
         "packet": "update_time",
@@ -2481,6 +3008,15 @@
                 "field": "time_of_day",
                 "type": "long"
             }
+        ]
+    },
+    {
+        "id": "0x65",
+        "header": "Set Title Text",
+        "packet": "set_title_text",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
         ]
     },
     {
@@ -2588,6 +3124,15 @@
                 "field": "seed",
                 "type": "long"
             }
+        ]
+    },
+    {
+        "id": "0x69",
+        "header": "Start Configuration",
+        "packet": "start_configuration",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
         ]
     },
     {
@@ -2724,6 +3269,15 @@
                 "field": "is_frozen",
                 "type": "boolean"
             }
+        ]
+    },
+    {
+        "id": "0x72",
+        "header": "Step Tick",
+        "packet": "step_tick",
+        "protocol_state": "play",
+        "bound_to": "client",
+        "content": [
         ]
     },
     {
@@ -2923,12 +3477,21 @@
             },
             {
                 "field": "label",
-                "type": "var_int_enum_text_component"
+                "type": "var_int_enum:text_component"
             },
             {
                 "field": "url",
                 "type": "string"
             }
+        ]
+    },
+    {
+        "id": "0x00",
+        "header": "Confirm Teleportation",
+        "packet": "confirm_teleportation",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
         ]
     },
     {
@@ -2942,6 +3505,33 @@
                 "field": "location",
                 "type": "position"
             }
+        ]
+    },
+    {
+        "id": "0x02",
+        "header": "Change Difficulty",
+        "packet": "change_difficulty",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
+        ]
+    },
+    {
+        "id": "0x03",
+        "header": "Acknowledge Message",
+        "packet": "acknowledge_message",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
+        ]
+    },
+    {
+        "id": "0x04",
+        "header": "Chat Command",
+        "packet": "chat_command",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
         ]
     },
     {
@@ -3044,6 +3634,24 @@
         ]
     },
     {
+        "id": "0x08",
+        "header": "Chunk Batch Received",
+        "packet": "chunk_batch_received",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
+        ]
+    },
+    {
+        "id": "0x09",
+        "header": "Client Status",
+        "packet": "client_status",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
+        ]
+    },
+    {
         "id": "0x0A",
         "header": "Client Information (play)",
         "packet": "client_information",
@@ -3091,6 +3699,15 @@
                 "field": "text",
                 "type": "string"
             }
+        ]
+    },
+    {
+        "id": "0x0C",
+        "header": "Acknowledge Configuration",
+        "packet": "acknowledge_configuration",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
         ]
     },
     {
@@ -3148,6 +3765,15 @@
         ]
     },
     {
+        "id": "0x0F",
+        "header": "Close Container",
+        "packet": "close_container",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
+        ]
+    },
+    {
         "id": "0x10",
         "header": "Change Container Slot State",
         "packet": "change_container_slot_state",
@@ -3196,6 +3822,15 @@
                 "field": "data",
                 "type": "byte_array"
             }
+        ]
+    },
+    {
+        "id": "0x13",
+        "header": "Debug Sample Subscription",
+        "packet": "debug_sample_subscription",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
         ]
     },
     {
@@ -3287,6 +3922,24 @@
         ]
     },
     {
+        "id": "0x18",
+        "header": "Serverbound Keep Alive (play)",
+        "packet": "serverbound_keep_alive",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
+        ]
+    },
+    {
+        "id": "0x19",
+        "header": "Lock Difficulty",
+        "packet": "lock_difficulty",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
+        ]
+    },
+    {
         "id": "0x1A",
         "header": "Set Player Position",
         "packet": "set_player_position",
@@ -3354,6 +4007,15 @@
         ]
     },
     {
+        "id": "0x1D",
+        "header": "Set Player On Ground",
+        "packet": "set_player_on_ground",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
+        ]
+    },
+    {
         "id": "0x1E",
         "header": "Move Vehicle",
         "packet": "move_vehicle",
@@ -3392,6 +4054,24 @@
         ]
     },
     {
+        "id": "0x20",
+        "header": "Pick Item",
+        "packet": "pick_item",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
+        ]
+    },
+    {
+        "id": "0x21",
+        "header": "Ping Request (play)",
+        "packet": "ping_request",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
+        ]
+    },
+    {
         "id": "0x22",
         "header": "Place Recipe",
         "packet": "place_recipe",
@@ -3406,6 +4086,15 @@
                 "field": "make_all",
                 "type": "boolean"
             }
+        ]
+    },
+    {
+        "id": "0x23",
+        "header": "Player Abilities (serverbound)",
+        "packet": "player_abilities",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
         ]
     },
     {
@@ -3464,6 +4153,15 @@
         ]
     },
     {
+        "id": "0x27",
+        "header": "Pong (play)",
+        "packet": "pong",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
+        ]
+    },
+    {
         "id": "0x28",
         "header": "Change Recipe Book Settings",
         "packet": "change_recipe_book_settings",
@@ -3478,6 +4176,24 @@
                 "field": "filter_active",
                 "type": "boolean"
             }
+        ]
+    },
+    {
+        "id": "0x29",
+        "header": "Set Seen Recipe",
+        "packet": "set_seen_recipe",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
+        ]
+    },
+    {
+        "id": "0x2A",
+        "header": "Rename Item",
+        "packet": "rename_item",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
         ]
     },
     {
@@ -3511,6 +4227,15 @@
         ]
     },
     {
+        "id": "0x2D",
+        "header": "Select Trade",
+        "packet": "select_trade",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
+        ]
+    },
+    {
         "id": "0x2E",
         "header": "Set Beacon Effect",
         "packet": "set_beacon_effect",
@@ -3529,6 +4254,15 @@
                 "field": "secondary_effect",
                 "type": "optional_var_int"
             }
+        ]
+    },
+    {
+        "id": "0x2F",
+        "header": "Set Held Item (serverbound)",
+        "packet": "set_held_item",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
         ]
     },
     {
@@ -3723,6 +4457,24 @@
                 "field": "line_4",
                 "type": "string"
             }
+        ]
+    },
+    {
+        "id": "0x36",
+        "header": "Swing Arm",
+        "packet": "swing_arm",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
+        ]
+    },
+    {
+        "id": "0x37",
+        "header": "Teleport To Entity",
+        "packet": "teleport_to_entity",
+        "protocol_state": "play",
+        "bound_to": "server",
+        "content": [
         ]
     },
     {
